@@ -3,6 +3,8 @@ import Bookables from './bookables/Bookables'
 import Bookable from './bookable/Bookable'
 import Review from './review/Review'
 import Basket from './basket/Basket'
+import Register from './auth/Register'
+
 
 const routes = [
     {
@@ -24,6 +26,16 @@ const routes = [
         path: "/basket",
         component: Basket,
         name: 'basket'
+    },
+    {
+        path: "/register",
+        component: Register,
+        name: 'register'
+    },
+    {
+        path: "/auth/login",
+        component: require('./auth/Login').default,
+        name: 'login'
     }
 ];
 

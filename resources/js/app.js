@@ -29,6 +29,19 @@ Vue.component('loading-state', LoadingState)
 
 const store = new Vuex.Store(storeDefinition)
 
+
+window.axios.interceptors.response.use(
+    response => {
+        return response
+    },
+    error => {
+        if(401 === error.response.status) {
+            store.dispatch('logout')
+        }
+        return Promise.reject(error)
+    }
+)
+
 const app = new Vue({
     el: '#app',
     router,
@@ -36,8 +49,16 @@ const app = new Vue({
     components: {
         'index': Index
     },
-    beforeCreate() {
+    async beforeCreate() {
         this.$store.dispatch('loadStoredState')
+        this.$store.dispatch('loadUser')
+        // await axios.get('/sanctum/csrf-cookie')
+        // await axios.post('/login', {
+        //     email: 'sandy30@example.org',
+        //     password: 'password'
+        // })
+
+        // await axios.get('/user')
     }
 });
 
